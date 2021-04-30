@@ -12,6 +12,7 @@ export const Products = ({ apiUrl, productId, ...props }) => {
     const [notification, setNotification] = useState(false);
     const [cartCount, setCartCount] = useState(0);
     const [cartId, setCartId] = useState();
+    var test = 0;
 
     const createCart=() => {
 
@@ -29,6 +30,26 @@ export const Products = ({ apiUrl, productId, ...props }) => {
             .then(function(myJson) {
                 console.log(myJson);
                 setCartId(myJson.cartId);
+                fetchCart(myJson.cartId);
+            });
+
+    }
+
+    const fetchCart=(cartId) => {
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        };
+
+        fetch('https://talpa-verkkokauppa-cart-experience-api-dev.apps.arodevtest.hel.fi/'+cartId)
+            .then(function(response){
+                console.log(response)
+                return response.json();
+            })
+            .then(function(myJson) {
+                console.log(myJson);
+                
             });
 
         console.log(requestOptions);
@@ -49,7 +70,6 @@ export const Products = ({ apiUrl, productId, ...props }) => {
                 return response.json();
             })
             .then(function(myJson) {
-                console.log(myJson.items.length);
                 if (myJson.items.length > 0) {
                     setNotification(true);
                     const newCount = myJson.items.length;
