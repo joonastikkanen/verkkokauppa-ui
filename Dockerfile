@@ -6,13 +6,7 @@ RUN npm install -g yarn
 # Copy project files into the docker image
 COPY . .
 
-# Chown to correct user
-USER 0
-RUN chown -R 1001:0 ${APP_ROOT} && chmod -R ug+rwx ${APP_ROOT} && \
-    rpm-file-permissions
-RUN chmod -R 777 /opt/app-root/src/node_modules/
-USER 1001
-
+WORKDIR /opt/app-root/src/
 
 
 RUN npm install --unsafe-perm
