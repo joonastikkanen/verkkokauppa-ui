@@ -10,14 +10,10 @@ COPY . .
 USER 0
 RUN chown -R 1001:0 ${APP_ROOT} && chmod -R ug+rwx ${APP_ROOT} && \
     rpm-file-permissions
-RUN chmod -R 777 /opt/app-root/src/node_modules/
-
 
 RUN npm install --unsafe-perm
-RUN mkdir /opt/app-root/src/node_modules/.cache
-
 EXPOSE 6006
-USER 1001
+
 CMD npm run storybook --unsafe-perm
 
 
