@@ -13,7 +13,7 @@ services:
       - '6006'
     ports:
       - '6006:6006'
-    command: yarn storybook
+    command: npm run storybook --unsafe-perm
     environment:
       - SERVICE_NAME=ui-components
       - VIRTUAL_PORT=6006
