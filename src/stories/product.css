@@ -9,8 +9,13 @@ article {
     margin: auto;
 }
 
+.productList div {
+    margin: auto;
+}
+
 .productList button {
     float: right;
+    margin-top: 20px;
 }
 
 .productList .clear {
@@ -33,4 +38,6 @@ article {
     line-height: 20px;
     float: right;
     margin-left: 10px;
+    padding: 5px;
+    margin-top: -5px;
 }

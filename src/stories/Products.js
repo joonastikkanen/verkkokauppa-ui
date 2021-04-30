@@ -8,10 +8,31 @@ import styles from "hds-react";
 
 export const Products = ({ apiUrl, productId, ...props }) => {
 
-
     const [data,setData]=useState([]);
     const [notification, setNotification] = useState(false);
     const [cartCount, setCartCount] = useState(0);
+    const [cartId, setCartId] = useState();
+
+    const createCart=() => {
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({namespace: "asukaspysakointi", user: "Testihenkilo"})
+        };
+
+        fetch('https://talpa-verkkokauppa-cart-experience-api-dev.apps.arodevtest.hel.fi/', requestOptions)
+            .then(function(response){
+                console.log(response)
+                return response.json();
+            })
+            .then(function(myJson) {
+                console.log(myJson);
+                setCartId(myJson.cartId);
+            });
+
+        console.log(requestOptions);
+    }
 
     const addToCart=(e) => {
         e.preventDefault();
@@ -19,20 +40,19 @@ export const Products = ({ apiUrl, productId, ...props }) => {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ productId: e.target.getAttribute('productId') })
+            body: JSON.stringify({productId: e.target.getAttribute('productId'), quantity: 1})
         };
 
-        fetch('https://reqres.in/api/posts', requestOptions)
+        fetch('https://talpa-verkkokauppa-cart-experience-api-dev.apps.arodevtest.hel.fi/'+cartId+'/items', requestOptions)
             .then(function(response){
                 console.log(response)
                 return response.json();
             })
             .then(function(myJson) {
-                console.log(myJson);
-                if (myJson.id) {
-                    console.log(myJson.id);
+                console.log(myJson.items.length);
+                if (myJson.items.length > 0) {
                     setNotification(true);
-                    const newCount = cartCount + 1;
+                    const newCount = myJson.items.length;
                     setCartCount(newCount);
                 }
             });
@@ -55,12 +75,13 @@ export const Products = ({ apiUrl, productId, ...props }) => {
             return response.json();
           })
           .then(function(myJson) {
-            console.log(myJson);
-            setData(myJson)
+
+            setData(myJson);
           });
       }
       useEffect(()=>{
-        getData()
+        createCart();
+        getData();
       },[])
 
 
@@ -74,14 +95,14 @@ export const Products = ({ apiUrl, productId, ...props }) => {
             >
                 
                 <Navigation.Actions>
-                    <a href="#"><div class="cartStatus">Ostoskori<div class="cartCount">{cartCount}</div></div></a>
+                    <a href="#"><div className="cartStatus">Ostoskori<div className="cartCount">{cartCount}</div></div></a>
                 </Navigation.Actions>
             </Navigation>
             <div className="container">
                 
                 {notification === true && (<Notification label="Tuote lisätty ostoskoriin" type="success" dismissible onClose={() => setNotification(false)}>Tuote on lisätty ostoskoriin onnistuneesti!</Notification>)}
 
-
+                
                 <section className="productList">
                     <Card
                         border
@@ -90,7 +111,7 @@ export const Products = ({ apiUrl, productId, ...props }) => {
                     >
                         <button onClick={addToCart} productId={data.productId} type="button" className="Button-module_button__1msFE button_hds-button__2A0je Button-module_primary__2LfKB button_hds-button--primary__2NVvO"><span className="Button-module_label__a4np1 button_hds-button__label__2EQa-">Lisää ostoskoriin</span></button>
 
-                        <div class="clear"></div>
+                        <div className="clear"></div>
                     </Card>
                 </section>
             </div>
@@ -107,6 +128,6 @@ Products.propTypes = {
   
 Products.defaultProps = {
     apiUrl: 'https://talpa-verkkokauppa-product-experience-api-dev.apps.arodevtest.hel.fi/',
-    productId: '97249ce6-b8ac-3b19-b81a-c026c4f0488b'
-    //apiUrl: 'http://localhost:6006/product.json',
+    productId: '97249ce6-b8ac-3b19-b81a-c026c4f0488b',
+    //productId: '7a691d19-df05-3bec-a786-fd3b9e991a2d'
 };
