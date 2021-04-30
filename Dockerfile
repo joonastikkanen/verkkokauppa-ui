@@ -10,13 +10,10 @@ COPY . .
 USER 0
 RUN chown -R 1001:0 ${APP_ROOT} && chmod -R ug+rwx ${APP_ROOT} && \
     rpm-file-permissions
-
-RUN chown -Rh $user:$user ${APP_ROOT}
-USER $user
+USER 1001
 
 RUN yarn
 EXPOSE 6006
-
 CMD yarn storybook
 
 
