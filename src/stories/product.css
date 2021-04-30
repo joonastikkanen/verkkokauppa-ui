@@ -1,0 +1,19 @@
+.container {
+    width: 100%;
+}
+
+.successful-notification {
+    display: none;
+}
+
+.productList {
+    margin: auto;
+}
+
+.productList button {
+    float: right;
+}
+
+.productList .clear {
+    clear: both;
+}

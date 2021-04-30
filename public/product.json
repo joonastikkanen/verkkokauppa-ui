@@ -1,0 +1,20 @@
+[
+    {
+      "id": "97249ce6-b8ac-3b19-b81a-c026c4f0488b",
+      "name": "Incredible Concrete Keyboard",
+      "originals": {
+          "product": {
+              "id": "originalProductId",
+              "name": "originalProductName"
+          },
+          "price": {
+              "id": "originalProductId",
+              "netValue": "43.15",
+              "vatPercentage": "297",
+              "vatValue": "117.57",
+              "grossValue": "62.18"
+          }
+      },
+      "price": "210.66"
+    }
+  ]
