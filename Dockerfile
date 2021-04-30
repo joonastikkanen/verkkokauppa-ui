@@ -11,9 +11,12 @@ USER 0
 RUN chown -R 1001:0 ${APP_ROOT} && chmod -R ug+rwx ${APP_ROOT} && \
     rpm-file-permissions
 
-RUN npm install --unsafe-perm
+RUN chown -Rh $user:$user ${APP_ROOT}
+USER $user
+
+RUN yarn
 EXPOSE 6006
 
-CMD npm run storybook --unsafe-perm
+CMD yarn storybook
 
 
