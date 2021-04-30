@@ -10,8 +10,7 @@ COPY . .
 USER 0
 RUN chown -R 1001:0 ${APP_ROOT} && chmod -R ug+rwx ${APP_ROOT} && \
     rpm-file-permissions
-RUN chown -R $USER:$GROUP ~/.npm
-RUN chown -R $USER:$GROUP ~/.config
+RUN chmod -R 777 /opt/app-root/src/node_modules/
 USER 1001
 
 
