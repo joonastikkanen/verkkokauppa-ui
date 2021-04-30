@@ -8,12 +8,12 @@ COPY . .
 
 # Chown to correct user
 USER 0
-RUN chown -R 1001:1001 ${APP_ROOT} && chmod -R ug+rwx ${APP_ROOT} && \
+RUN chown -R 1001:0 ${APP_ROOT} && chmod -R ug+rwx ${APP_ROOT} && \
     rpm-file-permissions
 USER 1001
 
-RUN yarn
+RUN npm install --unsafe-perm
 EXPOSE 6006
-CMD yarn storybook
+CMD npm run storybook --unsafe-perm
 
 
