@@ -1,9 +1,8 @@
+article {
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
 .container {
     width: 100%;
-}
-
-.successful-notification {
-    display: none;
 }
 
 .productList {
@@ -16,4 +15,22 @@
 
 .productList .clear {
     clear: both;
+}
+
+.cartStatus {
+    color: #000;
+    font-weight: 600;
+}
+
+.cartStatus .cartCount {
+    border-radius: 50%;
+    background: rgb(0,0,191);
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    color: #FFF;
+    font-size: 14px;
+    line-height: 20px;
+    float: right;
+    margin-left: 10px;
 }

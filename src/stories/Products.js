@@ -11,10 +11,10 @@ export const Products = ({ apiUrl, productId, ...props }) => {
 
     const [data,setData]=useState([]);
     const [notification, setNotification] = useState(false);
+    const [cartCount, setCartCount] = useState(0);
 
     const addToCart=(e) => {
         e.preventDefault();
-        console.log(e.target.getAttribute('productId'));
 
         const requestOptions = {
             method: 'POST',
@@ -32,6 +32,8 @@ export const Products = ({ apiUrl, productId, ...props }) => {
                 if (myJson.id) {
                     console.log(myJson.id);
                     setNotification(true);
+                    const newCount = cartCount + 1;
+                    setCartCount(newCount);
                 }
             });
 
@@ -72,12 +74,12 @@ export const Products = ({ apiUrl, productId, ...props }) => {
             >
                 
                 <Navigation.Actions>
-
+                    <a href="#"><div class="cartStatus">Ostoskori<div class="cartCount">{cartCount}</div></div></a>
                 </Navigation.Actions>
             </Navigation>
             <div className="container">
                 
-                {notification === true && (<Notification label="Tuote lisätty ostoskoriin 1" type="success" dismissible onClose={() => setNotification(false)}>Tuote on lisätty ostoskoriin onnistuneesti!</Notification>)}
+                {notification === true && (<Notification label="Tuote lisätty ostoskoriin" type="success" dismissible onClose={() => setNotification(false)}>Tuote on lisätty ostoskoriin onnistuneesti!</Notification>)}
 
 
                 <section className="productList">
